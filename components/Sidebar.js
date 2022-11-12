@@ -7,7 +7,7 @@ const Sidebar = () => {
 
     return (
         <>
-            <Image width={200} height={100} src="/assets/img/logo.svg" alt="imagen logotipo"/>
+            <Image className="m-8" width={200} height={100} src="/assets/img/logo.svg" alt="imagen logotipo"/>
 
             <nav className="mt-10">
                 {categorias.map(categoria => (
