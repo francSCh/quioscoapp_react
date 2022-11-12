@@ -5,18 +5,18 @@ import { useRouter } from 'next/router';
 
 const QuioscoContext = createContext();
 
-const QuioscoProvider = ({children}) => {
-    const [ categorias, setCategorias ] = useState([]);
-    const [ categoriaActual, setCategoriaActual ] = useState({});
-    const [ producto, setProducto ] = useState({});
-    const [ modal, setModal ] = useState(false);
-    const [ pedido, setPedido ] = useState([]);
-    const [ total, setTotal] = useState(0);
+const QuioscoProvider = ({ children }) => {
+    const [categorias, setCategorias] = useState([]);
+    const [categoriaActual, setCategoriaActual] = useState({});
+    const [producto, setProducto] = useState({});
+    const [modal, setModal] = useState(false);
+    const [pedido, setPedido] = useState([]);
+    const [total, setTotal] = useState(0);
 
-    const [ nombre, setNombre ] = useState('');
+    const [nombre, setNombre] = useState('');
 
     const router = useRouter();
-    
+
     useEffect(() => {
         const obtenerCategorias = async () => {
             const { data } = await axios('/api/categorias');
@@ -53,8 +53,8 @@ const QuioscoProvider = ({children}) => {
 
     //Lo que hace este código es aplicando destructuring y sacar categoriaId e imagen del objeto producto
     //y toma una copia con un objeto nuevo sin esas dos propiedades del objeto
-    const handleAgregarPedido = ({categoriaId, ...producto}) => {
-        if(pedido.some(p => p.id === producto.id)) {
+    const handleAgregarPedido = ({ categoriaId, ...producto }) => {
+        if (pedido.some(p => p.id === producto.id)) {
             //El producto ya existe, por lo tanto actualizamos la cantidad
             const pedidoActualizado = pedido.map(p => p.id === producto.id ? producto : p);
             setPedido(pedidoActualizado);
@@ -65,7 +65,7 @@ const QuioscoProvider = ({children}) => {
             setPedido([...pedido, producto]);
             toast.success('Agregado al Pedido');
         }
-        
+
         setModal(false);
     };
 
@@ -85,7 +85,24 @@ const QuioscoProvider = ({children}) => {
     const colocarOrden = async e => {
         e.preventDefault();
 
-        
+        try {
+            await axios.post('/api/ordenes', { pedido, nombre, total, fecha: Date.now() });
+
+            //Resteamos la app
+            setCategoriaActual(categorias[0]);
+            setPedido([]);
+            setNombre('');
+            setTotal(0);
+
+            toast.success('Pedido realizado correctamente');
+
+            setTimeout(() => {
+                router.push('/');
+            }, 3000);
+
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     return (
