@@ -49,10 +49,11 @@ const QuioscoProvider = ({children}) => {
             setPedido([...pedido, producto]);
         }
         
+        setModal(false);
     };
 
     return (
-        <QuioscoContext.Provider value={{ categorias, categoriaActual, handleClickCategoria, producto, handleSetProducto, modal, handleChangeModal, handleAgregarPedido }}>
+        <QuioscoContext.Provider value={{ categorias, categoriaActual, handleClickCategoria, producto, handleSetProducto, modal, handleChangeModal, handleAgregarPedido, pedido }}>
             {children}
         </QuioscoContext.Provider>
     );
