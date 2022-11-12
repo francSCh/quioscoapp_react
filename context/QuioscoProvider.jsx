@@ -8,6 +8,7 @@ const QuioscoProvider = ({children}) => {
     const [ categoriaActual, setCategoriaActual ] = useState({});
     const [ producto, setProducto ] = useState({});
     const [ modal, setModal ] = useState(false);
+    const [ pedido, setPedido ] = useState([]);
     
     useEffect(() => {
         const obtenerCategorias = async () => {
@@ -36,8 +37,22 @@ const QuioscoProvider = ({children}) => {
         setModal(!modal);
     };
 
+    //Lo que hace este código es aplicando destructuring y sacar categoriaId e imagen del objeto producto
+    //y toma una copia con un objeto nuevo sin esas dos propiedades del objeto
+    const handleAgregarPedido = ({categoriaId, imagen, ...producto}) => {
+        if(pedido.some(p => p.id === producto.id)) {
+            //El producto ya existe, por lo tanto actualizamos la cantidad
+            const pedidoActualizado = pedido.map(p => p.id === producto.id ? producto : p);
+            setPedido(pedidoActualizado);
+        } else {
+            //El producto no existe
+            setPedido([...pedido, producto]);
+        }
+        
+    };
+
     return (
-        <QuioscoContext.Provider value={{ categorias, categoriaActual, handleClickCategoria, producto, handleSetProducto, modal, handleChangeModal }}>
+        <QuioscoContext.Provider value={{ categorias, categoriaActual, handleClickCategoria, producto, handleSetProducto, modal, handleChangeModal, handleAgregarPedido }}>
             {children}
         </QuioscoContext.Provider>
     );
