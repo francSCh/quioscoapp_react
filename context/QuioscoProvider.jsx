@@ -40,7 +40,7 @@ const QuioscoProvider = ({children}) => {
 
     //Lo que hace este código es aplicando destructuring y sacar categoriaId e imagen del objeto producto
     //y toma una copia con un objeto nuevo sin esas dos propiedades del objeto
-    const handleAgregarPedido = ({categoriaId, imagen, ...producto}) => {
+    const handleAgregarPedido = ({categoriaId, ...producto}) => {
         if(pedido.some(p => p.id === producto.id)) {
             //El producto ya existe, por lo tanto actualizamos la cantidad
             const pedidoActualizado = pedido.map(p => p.id === producto.id ? producto : p);
