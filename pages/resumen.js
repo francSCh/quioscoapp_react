@@ -12,7 +12,7 @@ export default function Resumen() {
             <p className="text-2xl my-10">Revisa tu Pedido</p>
 
             {pedido.length === 0 ?(
-                <p className="text-center text-2xl"> no hay pedidos jejejeje</p>
+                <p className="text-center text-2xl">Aún no hay Productos</p>
             ) : (
                 pedido.map(producto => (
                     <ResumenProducto key={producto.id} producto={producto} />
