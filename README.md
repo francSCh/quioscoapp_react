@@ -35,5 +35,6 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
 =======
 # quioscoapp_react
-Quiosco hecho con las tecnologías de Next.js, Prisma y TailwindCSS
+Quiosco hecho con las tecnologías de Next.js, Prisma y TailwindCSS 
+Este proyecto lo hice gracias al curso de React - La Guía Completa de Código con Juan
 >>>>>>> e333ea5cc518d31e41b9e90393b7d53eb38092cf
